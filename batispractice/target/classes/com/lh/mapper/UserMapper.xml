@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lh.mapper.UserMapper">
+
+
+    <sql id="MySql">
+        <if test="userEx != null" >
+            <if test="UserEx.sex != null">
+                and sex = #{userEx.sex}
+            </if>
+            <if test="userEx.username != null">
+                and username LIKE '%${userEx.username}%'
+            </if>
+        </if>
+    </sql>
+    <select id="queryUserByZH" parameterType="com.lh.bz.UserBz" resultType="com.lh.po.UserEx">
+        SELECT * FROM USER
+        <where>
+           <include refid="MySql"/>
+        </where>
+    </select>
+
+</mapper>
